@@ -73,16 +73,22 @@
 #
 # print()
 
-def name_age():
-    name = input("Please enter your name: ")
-    age = int(input("Please enter your age: "))
+# def name_age():
+#     name = input("Please enter your name: ")
+#     age = int(input("Please enter your age: "))
+#
+#     # Method 1: Concatenation
+#     print("Hello, " + name + ". You are " + str(age) + " years old.")
+#
+#     # Method 2: String format()
+#     print("Hello, {}. You are {} years old.".format(name, age))
+#
+#     # Method 3: f-strings
+#     print(f"Hello, {name}. You are {age} years old.")
+# name_age()
 
-    # Method 1: Concatenation
-    print("Hello, " + name + ". You are " + str(age) + " years old.")
-
-    # Method 2: String format()
-    print("Hello, {}. You are {} years old.".format(name, age))
-
-    # Method 3: f-strings
-    print(f"Hello, {name}. You are {age} years old.")
-name_age()
+def f(name, n):
+    print("Hello", name)
+    if (n > 0):
+            f(name + 1, n-1)
+f("s", 3)

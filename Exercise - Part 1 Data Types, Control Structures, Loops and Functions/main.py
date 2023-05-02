@@ -21,28 +21,32 @@ number_eight()
 # console in the following format:
 # Hello, NAME. You are AGE years old
 
-# def name_age():
-#     name, age = input("Sag mir deinen Vornamen und dein Alter getrennt durch ein Leerzeichen.").split()
-#     print("Hallo", str(name), "Du bist", int(age), "Jahre alt") #Concentation
-#     print("Hallo", {}, "Du bist", {}, "Jahre alt".format(name, age)) #String format()
-#     print(f"Hallo", {name}, "Du bist", {age}, "Jahre alt") #f-strings
-#
-# name_age()
+def name_age():
+    name, age = input("Task 3: Sag mir deinen Vornamen und dein Alter getrennt durch ein Leerzeichen: ").split()
+    age_as_int = int(age)
+    message = "Hallo " + name  + " Du bist " + age + " Jahre alt" #Concentation (Nachteil: nur Strings)
+    print(message)
+    print("Hallo {name} Du bist {age} Jahre alt".format(name = name, age = age)) #String format()
+    print(f"Hallo {name} Du bist {age} Jahre alt") #f-strings
 
-#hier fehlermeldung falls nur ein name eingegeben wurde
+name_age()
 
-#4: Swap - DONE
+#Verbesserungsvorschlag: hier fehlermeldung falls nur ein name eingegeben wurde
+
+#4: Swap
 # Write a function swap_integers() that reads two integers from the user and prints them on the
 # console. Then the function swaps the integers in memory and prints the swapped integers again on
 # the console. If, for example, the first integer is x=10 and the second is y=20, x must have the value
 # 20 after the swap (Hint: you can use a temporary variable). The function does not return anything.
 
-# def swap_integers():
-#     int1, int2 = input("Task 3: Sag mir bitte zwei Zahlen mit Leerzeichen getrennt: ").split()
-#     print("    Vor Swap", int1,",", int2)
-#     print("    Swap", int2, ",", int1)
-#
-# swap_integers()
+def swap_integers():
+    int1, int2 = input("Task 4: Sag mir bitte zwei Zahlen mit Leerzeichen getrennt: ").split()
+    print("    Vor Swap", int1,",", int2)
+    z = int1
+
+    print("    Nach Swap", int2, ",", int1)
+
+swap_integers()
 
 
 #5: Modulo check - DONE
@@ -52,16 +56,16 @@ number_eight()
 
 num1, num2 = (30, 10)
 def check_number(num1, num2):
+    print("Task 5: ")
     if (num1 % 6 == 0 or num2 % 6 == 0) and (num1 % 10 == 0 and num2 % 10 == 0):
-        print("Task 5:", True)
+        return True
     elif num1 % 6 == 0 or num2 % 6 == 0:
         print("Task 5: At least on number is divisible by 6")
     elif num1 % 10 == 0 and num2 % 10 == 0:
         print("Task 5: Both numbers are divisible by 10")
     else:
         print("Task 5: Not divisible by 6 or by 10")
-
-check_number(num1, num2)
+print(check_number(num1, num2))
 
 #6: Summarizer
 # Write a function sum_up(number1, number2) that accepts two integers and sums up every
@@ -69,38 +73,43 @@ check_number(num1, num2)
 # number is greater than the first and display a message if it’s not. The function returns the result as an
 # integer
 #
-# num1, num2 = (3, 9)
-# def sum_up(num1, num2):
-#
-#
-# sum_up(num1, num2)
+num1, num2 = (3, 9)
+def sum_up(num1, num2):
+    if num1 > num2:
+        print("Task 6: Nummer 2 sollte größer als Nummer 1 sein")
+    else:
+        summe = 0
+        for i in range(int(num1), int(num2+1)):
+            summe += i
+        print("Task 6:", summe)
+
+sum_up(num1, num2)
 
 
-#7: Sequencer
+#7: Sequencer DONE
 # Write a function sequence(number) that accepts an integer as argument. It then checks if the
 # given number is an integer between 0 and 9 (inclusive) and prints an error message if it’s not. In case
 # the given number is between 0 and 9, the function prints the sequence of number from 0 to 9 on the
 # console without the given number. The function does not return anything.
-
-number = input("Sag mir eine Zahl. Wenn Du willst, das was Cooles passiert sag mir eine Zahl zwischen 0 und 9: ")
+#
+number = input("Task 7: Sag mir eine Zahl. Wenn Du willst, das was Cooles passiert, sag mir eine Zahl zwischen 0 und 9: ")
 def sequence(number):
     if int(number) < 0 or int(number) > 9:
-        number = input("Nochmal: wenn Du willst, das was Cooles passiert, sag mir eine Zahl zwischen 0 und 9: ")
+        print("Das ist keine Zahl zwischen 0 und 9. Pech gehabt!")
     else:
         for i in range(10):
-            if i != number:
-                print(i, end=" ")
-
+            if i == int(number):continue
+            print(i)
 sequence(number)
 
-#hier soll die schleife unendlich sein
+#Verbesserungsvorschlag für mich später: hier soll die schleife unendlich sein, also wenn Zahl < 0 oder > 9 eingegeben wird, soll weiter gefragt werden
 
-#8: String Check
+#8: String Check DONE
 # Write a function check_string(text) that accepts a string and checks if it begins OR ends with
 # the character “a”. Use built-in string methods of python. The function returns True if the string begins or ends with an “a”. The function should work for
 # lower and upper case strings.
 
-text = "nichts oder alles"
+text = "alles"
 
 def check_string(text):
     if text.endswith("a" or "A") or text.startswith("a" or "A"):
