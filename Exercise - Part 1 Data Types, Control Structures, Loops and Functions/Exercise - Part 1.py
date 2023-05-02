@@ -43,8 +43,9 @@ def swap_integers():
     int1, int2 = input("Task 4: Sag mir bitte zwei Zahlen mit Leerzeichen getrennt: ").split()
     print("    Vor Swap", int1,",", int2)
     z = int1
-
-    print("    Nach Swap", int2, ",", int1)
+    int1 = int2
+    int2 = z
+    print("    Nach Swap", int1, ",", int2)
 
 swap_integers()
 
@@ -54,7 +55,7 @@ swap_integers()
 # function checks if any of the numbers is divisible by 6 and if both are divisible by 10. The function
 # does return true if both conditions are true. Hint: Use the modulo operator.
 
-num1, num2 = (30, 10)
+num1, num2 = (5, 10)
 def check_number(num1, num2):
     print("Task 5: ")
     if (num1 % 6 == 0 or num2 % 6 == 0) and (num1 % 10 == 0 and num2 % 10 == 0):
@@ -67,7 +68,7 @@ def check_number(num1, num2):
         print("Task 5: Not divisible by 6 or by 10")
 print(check_number(num1, num2))
 
-#6: Summarizer
+#6: Summarizer DONE
 # Write a function sum_up(number1, number2) that accepts two integers and sums up every
 # integer between the two numbers including the given integers (inclusive). Check if the second
 # number is greater than the first and display a message if it’s not. The function returns the result as an
