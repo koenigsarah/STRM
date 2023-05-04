@@ -26,7 +26,7 @@ print()
 #numbers_equal_to_number = [number.count() for e in numbers if number == e]
 
 
-#2: Playing with lists
+#2: Playing with lists DONE
 """Write a function play_with_lists(numbers, number) that accepts a list of integers 
 named numbers and an integer named number as arguments. Use built-in list functions to achieve 
 the following:
@@ -88,7 +88,7 @@ print()
 #print(reverse_numbers.reverse())
 
 
-#3: Comparing list elements
+#3: Comparing list elements DONE
 """Write a function compare_lists(list1, list2) that accepts two list as arguments. The
 function looks for elements that the two lists have in common. It returns a list containing all those 
 elements. This list may be empty if there are no common elements"""
@@ -116,7 +116,7 @@ Then write another function named remove_duplicates_my_way(items). This time fin
 way to accomplish the task without using another container.
 Both functions return the list of strings without duplicates."""
 
-items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
+items = ["Hallo", "Hallo", "Du", "Ich", 7, 8, 8, 9, 0] # geht mit Zahlen auch
 print("Task 4: ")
 def remove_duplicates(items):
     print("Leichte Variante: ", list(set(items)))
@@ -124,28 +124,28 @@ remove_duplicates(items)
 
 
 items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
+
 def remove_duplicats_my_way(items):
     print()
 
 remove_duplicats_my_way(items)
 
 
-#5: Computer desription
+#5: Computer desription DONE
 """Write a function describe_computer(computer) that accepts a dictionary named 
 computer as argument. The given dictionary contains the keys “Type”, “Brand” and “Price”. 
 The function prints out the values of the dictionary in the following format"""
 
 computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000}
+print("Task 5: ")
 
 def describe_computer(computer):
     type = computer.get("Type", "Notebook")
     brand = computer.get("Brand", "Dell")
     price = computer.get("Price", 2000)
-
     print(f"You have a {type} from {brand} that costs {price} €")
 
     computer.setdefault("OS", "Linux")
-
     print(computer)
 
 describe_computer(computer)
