@@ -7,7 +7,7 @@ numbers and an integer named number as arguments. It counts the occurrence of th
 number in the list and returns the count as an integer. Do not use-built-in functions! Use loops to
 solve the problem."""
 
-numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
+numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 2
 print("Task 1: ")
 
 def count_a_number(numbers, number):
@@ -21,19 +21,29 @@ count_a_number(numbers, number)
 
 print()
 
-#Verbesserungen für ein anderes Mal:
-#numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
-#numbers_equal_to_number = [number.count() for e in numbers if number == e]
+#Andere Versuche
+#numbers_equal_to_number = [counter += 1 for number in numbers if numbers == number] - geht es auch so irgendwie?
+
+numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
+print("Task 1: ")
+
+def count_a_number2(numbers, number):
+    counter = 0
+    print(len([x for x in numbers if x == number]))
+
+count_a_number2(numbers, number)
+
+print()
 
 
 #2: Playing with lists DONE
 """Write a function play_with_lists(numbers, number) that accepts a list of integers 
 named numbers and an integer named number as arguments. Use built-in list functions to achieve 
 the following:
- Print out the list in reverse order but leave the original list in order
- Replace the given integer number within the list with the number 1 and print it on the 
+1) Print out the list in reverse order but leave the original list in order
+2) Replace the given integer number within the list with the number 1 and print it on the 
 console
- Print out a sorted version of the list in descending order
+3) Print out a sorted version of the list in descending order
 Don’t forget that lists are mutable. You probably will have to make a copy if you want the leave the 
 original list untouched. Investigate the difference between using the build-in function 
 sorted(list) and the sort function of the class list. Write a comment why you chose the 
@@ -47,12 +57,15 @@ def play_with_lists(numbers, number):
     replaced_numbers = numbers
     sorted_numbers1 = numbers
 
-    print("Reverse_numbers: ", reverse_numbers[::-1]) # Task one
+    print("Reverse_numbers:  ", reverse_numbers[::-1]) # Task one
 
-    if number in replaced_numbers:
+    if number in replaced_numbers: # Task 2 hier wird nur erste 8 ersetzt, nicht ideal - umbauen auf for
         i = replaced_numbers.index(number)
         replaced_numbers[i] = 1
         print("Replaced_numbers: ", replaced_numbers)
+
+    replaced_numbers2 = [1 if x == number else x for x in replaced_numbers] # Task 2 mit List Comprehension, hier werden alle 8er ersetzt
+    print("Replaced_numbers2:", replaced_numbers2)
 
     sorted_numbers1.sort(reverse = True) # Task three
     print("Sorted_numbers 1: ", sorted_numbers1)
@@ -64,7 +77,7 @@ def play_with_lists(numbers, number):
 """-
 - sorted(list) --> neue Liste, originale Liste bleibt; mit jedem iterierbaren Objekt, 
 - list.sort() --> ordet die originale Liste
-- Habe eine neue Variable erstellt und .sort() genommen, damit die Originale bestehen bleibt - sorted_numbers und reverse_numbers passt für mich so besser zusammen
+- Hab beide erstellt, kommt drauf an was man braucht (ob Originale bestehen soll oder nicht). Hier ist es egal, da es die letzte Aufgabe ist.
 """
 
 play_with_lists(numbers, number)
@@ -74,14 +87,13 @@ print()
 
     # numbers_ersetzen = [1 if number == numbers_ersetzen else number for number in numbers_ersetzen] # Task two
     # print(numbers_ersetzen)
-     # for i, number in enumerate(numbers_ersetzen): # Task two
+    # for i, number in enumerate(numbers_ersetzen): # Task two
     #     if number == numbers_ersetzen:
     #         numbers_ersetzen[i] == 1
     #     print(numbers_ersetzen)
 
     # numbers_ersetzen = [1 if number == numbers_ersetzen else number for number in numbers_ersetzen] # Task two
     # print(numbers_ersetzen)
-
 
 #for e in reversed(numbers): #Task one - does not modify the list, just get a view, but not a list
        #print(e)
@@ -93,7 +105,7 @@ print()
 function looks for elements that the two lists have in common. It returns a list containing all those 
 elements. This list may be empty if there are no common elements"""
 
-list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1,2,3]
+list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3]
 print("Task 3: ")
 def compare_lists(list1, list2):
     print("Common elements: ", list(set(list1) & set(list2)))
@@ -101,7 +113,7 @@ def compare_lists(list1, list2):
 compare_lists(list1, list2)
 print()
 
-# Ideen für ein anderes Mal:
+# Ideen für ein anderes Mal, die noch nicht funktioniert haben:
 # list3 = []
 #     for x in list1:
 #         for y in list2:
@@ -116,27 +128,70 @@ Then write another function named remove_duplicates_my_way(items). This time fin
 way to accomplish the task without using another container.
 Both functions return the list of strings without duplicates."""
 
-items = ["Hallo", "Hallo", "Du", "Ich", 7, 8, 8, 9, 0] # geht mit Zahlen auch
+items = ["Hallo", "Hallo", "Du", "Ich", 7, 8, 8, 9, 0] # nicht nur für strg funktioniert es
 print("Task 4: ")
 def remove_duplicates(items):
-    print("Leichte Variante: ", list(set(items)))
-remove_duplicates(items)
+    print("Leichte Variante: ", str(list(set(items)))) #hier str bringt für den Type unten nichts
+    for x in list(set(items)): #Check, ob alles eh strg ist
+        print(type(x)) # hier bringt str(type(x)) auch nicht, trotzdem ints unten, hätte hier noch gern, dass alle typen in einer Liste und nicht untereinander stehen, hab es noch nicht geschafft
+remove_duplicates(items) # hier teilt es mir "Hallo" z.B. wieder in einzelne Strings auf
 
+#bei der oberen Variante hab ich items = str([ geschrieben, damit alles strg ist (aber es hat mir "Hallo" aufgeteilt, das wollte ich nicht
+#lasse es jetzt so, da es für mich kein Bug sondern ein Feature ist
 
 items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
+print("Schwere Variante: ")
 
 def remove_duplicats_my_way(items):
-    print()
+    items_without_duplicates = []
+    for x in items:
+        if x not in items_without_duplicates:
+            items_without_duplicates.append(x)
+            continue
+    print(items_without_duplicates)
 
 remove_duplicats_my_way(items)
 
+#Erste Schwache Versuche um Mitternacht:
+   # items_without_duplicates = []
+   #  for x in items and y in items:
+   #      if (x != y):
+   #          print(items_without_duplicates([x != y]))
+
+#neue Liste wo jedes Element hinzugefügt wird, aber es macht mir jedesmal eine neue Liste....
+# def remove_duplicats_my_way(items):
+#     items_without_duplicates = []
+#     for x in items:
+#         if x not in items_without_duplicates:
+#             items_without_duplicates.append(x)
+#         print(items_without_duplicates)
+#
+# remove_duplicats_my_way(items)
+
+#continue hinzugefügt, hier hab ich nur mehr zwei neue Liste und nicht mehr so viele - aber dennohc eine zu viel
+#hab print eingerückt, nun bekomme ich nur eine korrekte Liste - finally
 
 #5: Computer desription DONE
 """Write a function describe_computer(computer) that accepts a dictionary named 
 computer as argument. The given dictionary contains the keys “Type”, “Brand” and “Price”. 
-The function prints out the values of the dictionary in the following format"""
+The function prints out the values of the dictionary in the following format: 
+You have a TYPE from BRAND that costs PRICE€.
+The capitalized words like TYPE and BRAND represent the values assigned to the keys in the 
+dictionary. 
+Then the function adds the key “OS” to the dictionary and defaults it to “Linux”. Afterwards it 
+prints the dictionary to the console.
+Example:
+my_notebook = {'Type': 'Notebook', 'Brand': 'Dell', 'Price': 2000}
+describe_computer(my_notebook)
+Example output:
+You have a Notebook from Dell that costs 2000€.
+{'Type': 'Notebook', 'Brand': 'Dell', 'Price': 2000, 'OS': 'Linux'}
+If one of the keys is not present, the value used in the output defaults to a custom text like “unknown 
+brand” for the key “Brand”.
+The function does not return anything
+"""
 
-computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000}
+computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000, "Non" : ""}
 print("Task 5: ")
 
 def describe_computer(computer):
@@ -149,3 +204,5 @@ def describe_computer(computer):
     print(computer)
 
 describe_computer(computer)
+
+#erster Schritt printen hat gepasst, es fehlt noch If one of the keys is not present, the value used in the output defaults to a text
