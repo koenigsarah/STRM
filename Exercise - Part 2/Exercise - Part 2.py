@@ -7,33 +7,30 @@ numbers and an integer named number as arguments. It counts the occurrence of th
 number in the list and returns the count as an integer. Do not use-built-in functions! Use loops to
 solve the problem."""
 
-numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 2
-print("Task 1: ")
+numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
+print("Task 1.1: ")
 
 def count_a_number(numbers, number):
     counter = 0
     for e in numbers:
         if number == e:
             counter += 1
-    print(counter)
+    print(counter, "\n")
 
 count_a_number(numbers, number)
 
-print()
 
 #Andere Versuche
 #numbers_equal_to_number = [counter += 1 for number in numbers if numbers == number] - geht es auch so irgendwie?
 
 numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
-print("Task 1: ")
+print("Task 1.2: ")
 
 def count_a_number2(numbers, number):
     counter = 0
-    print(len([x for x in numbers if x == number]))
+    print(len([x for x in numbers if x == number]), "\n")
 
 count_a_number2(numbers, number)
-
-print()
 
 
 #2: Playing with lists DONE
@@ -53,9 +50,11 @@ The function does not return anything."""
 numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
 print("Task 2: ")
 def play_with_lists(numbers, number):
-    reverse_numbers = numbers
-    replaced_numbers = numbers
-    sorted_numbers1 = numbers
+    numbers_1 = numbers[:]
+    reverse_numbers = numbers[:]
+    replaced_numbers = numbers[:]
+    sorted_numbers1 = numbers[:]
+    sorted_numbers2 = numbers[:]
 
     print("Reverse_numbers:  ", reverse_numbers[::-1]) # Task one
 
@@ -67,11 +66,13 @@ def play_with_lists(numbers, number):
     replaced_numbers2 = [1 if x == number else x for x in replaced_numbers] # Task 2 mit List Comprehension, hier werden alle 8er ersetzt
     print("Replaced_numbers2:", replaced_numbers2)
 
-    sorted_numbers1.sort(reverse = True) # Task three
+    sorted_numbers1.sort(reverse = True) # Task three .sort
     print("Sorted_numbers 1: ", sorted_numbers1)
 
-    sorted_numbers2 = sorted(numbers, reverse = True)
+    sorted_numbers2 = sorted(numbers_1, reverse = True) # Task sorted()
     print("Sorted_numbers 2: ", sorted_numbers2)
+    print("Originale Liste:  ", numbers_1, "\n")
+
 
 #Unterschied zwischen sorted(list) und list.sort():
 """-
@@ -81,7 +82,7 @@ def play_with_lists(numbers, number):
 """
 
 play_with_lists(numbers, number)
-print()
+
 
 #Verbesserungen für später
 
@@ -105,13 +106,12 @@ print()
 function looks for elements that the two lists have in common. It returns a list containing all those 
 elements. This list may be empty if there are no common elements"""
 
-list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3]
+list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3, 7]
 print("Task 3: ")
 def compare_lists(list1, list2):
-    print("Common elements: ", list(set(list1) & set(list2)))
+    return print("Common elements: ", list(set(list1) & set(list2)), "\n")
 
 compare_lists(list1, list2)
-print()
 
 # Ideen für ein anderes Mal, die noch nicht funktioniert haben:
 # list3 = []
@@ -128,12 +128,12 @@ Then write another function named remove_duplicates_my_way(items). This time fin
 way to accomplish the task without using another container.
 Both functions return the list of strings without duplicates."""
 
-items = ["Hallo", "Hallo", "Du", "Ich", 7, 8, 8, 9, 0] # nicht nur für strg funktioniert es
+items = ["Hallo", "Hallo", "Du", 7, 8, 8, 9, 0] # nicht nur für strg funktioniert es - kein Bug, sondern ein Feature
 print("Task 4: ")
 def remove_duplicates(items):
     print("Leichte Variante: ", str(list(set(items)))) #hier str bringt für den Type unten nichts
     for x in list(set(items)): #Check, ob alles eh strg ist
-        print(type(x)) # hier bringt str(type(x)) auch nicht, trotzdem ints unten, hätte hier noch gern, dass alle typen in einer Liste und nicht untereinander stehen, hab es noch nicht geschafft
+        print(type(x)) # hier bringt str(type(x)) auch nicht, trotzdem ints unten, hätte hier noch gern, dass alle typen in einer Liste und nicht untereinander stehen
 remove_duplicates(items) # hier teilt es mir "Hallo" z.B. wieder in einzelne Strings auf
 
 #bei der oberen Variante hab ich items = str([ geschrieben, damit alles strg ist (aber es hat mir "Hallo" aufgeteilt, das wollte ich nicht
@@ -148,7 +148,7 @@ def remove_duplicats_my_way(items):
         if x not in items_without_duplicates:
             items_without_duplicates.append(x)
             continue
-    print(items_without_duplicates)
+    print(items_without_duplicates, "\n")
 
 remove_duplicats_my_way(items)
 
@@ -165,7 +165,6 @@ remove_duplicats_my_way(items)
 #         if x not in items_without_duplicates:
 #             items_without_duplicates.append(x)
 #         print(items_without_duplicates)
-#
 # remove_duplicats_my_way(items)
 
 #continue hinzugefügt, hier hab ich nur mehr zwei neue Liste und nicht mehr so viele - aber dennohc eine zu viel
@@ -203,6 +202,47 @@ def describe_computer(computer):
     computer.setdefault("OS", "Linux")
     print(computer)
 
+    for x in computer: #V1
+        if not computer[x]:
+            computer[x] = "None"
+    return print("V1: ", computer, "\n")
+
 describe_computer(computer)
 
+computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000, "Non" : ""}
+
+def describe_computer1(computer):
+    type = computer.get("Type", "Notebook")
+    brand = computer.get("Brand", "Dell")
+    price = computer.get("Price", 2000)
+    print(f"You have a {type} from {brand} that costs {price} €")
+
+    computer.setdefault("OS", "Linux")
+    print(computer)
+
+    computer_1 = computer
+    computer_1 = [computer[x] == "None" for x in computer if not computer[x]]
+    print("V2: ", computer_1)
+
+describe_computer1(computer)
+
 #erster Schritt printen hat gepasst, es fehlt noch If one of the keys is not present, the value used in the output defaults to a text
+# print(dict(set(computer)))
+# print(dict(set(computer))) #dadurch bekomme ich alle Values leer, danke stakeoverflow.com
+# a = set(computer)
+#     print("a = ", a)
+#     b = dict.fromkeys(a, "") ### keine Values
+#     print("b = ", b)
+#
+#     re = not any(b.values()) # Values sind leer, check print(res)
+#     If re = not any(b.values):
+#           return b.values("None"))
+#
+#     If re = True:
+#         b.values(None)
+#     print(res)
+#
+#  a = set(computer)
+#     print("a = ", a)
+#     b = dict.fromkeys(a, "") ### keine Values
+#     print("b = ", b)
