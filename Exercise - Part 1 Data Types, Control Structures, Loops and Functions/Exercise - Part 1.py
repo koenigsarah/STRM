@@ -9,12 +9,6 @@ def famous_quote():
 
 famous_quote()
 
-#Notizen
-# quote = '"Even I don´t wake up looking like Cindy Crawford"'
-#     author = "Cindy Crawford"
-#     print("Task 1: ", author, "once said", quote)
-
-
 #2: Number Eight - DONE
 """Write a function called number_eight(), that uses addition, subtraction, multiplication, division
 and exponentiation operations that each result in the number 8. Be sure to enclose your operations
@@ -187,7 +181,7 @@ check_string(text)
 
 #9: ASCII Art - DONE
 """Write a function triangle(rows) that accepts an integer and prints out a triangle of stars with
-# spaces in between them with the height of the given integer. The function does not return anything.not"""
+spaces in between them with the height of the given integer. The function does not return anything.not"""
 
 rows = int(6)
 print("Task 9: ")
