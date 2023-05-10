@@ -15,9 +15,9 @@ def count_a_number(numbers, number):
     for e in numbers:
         if number == e:
             counter += 1
-    print(counter, "\n")
+    return counter
 
-count_a_number(numbers, number)
+print(count_a_number(numbers, number), "\n")
 
 
 #Andere Versuche
@@ -28,9 +28,9 @@ print("Task 1.2: ")
 
 def count_a_number2(numbers, number):
     counter = 0
-    print(len([x for x in numbers if x == number]), "\n")
+    return len([x for x in numbers if x == number])
 
-count_a_number2(numbers, number)
+print(count_a_number2(numbers, number), "\n")
 
 
 #2: Playing with lists DONE
@@ -73,6 +73,7 @@ def play_with_lists(numbers, number):
     print("Sorted_numbers 2: ", sorted_numbers2)
     print("Originale Liste:  ", numbers_1, "\n")
 
+play_with_lists(numbers, number)
 
 #Unterschied zwischen sorted(list) und list.sort():
 """-
@@ -81,21 +82,15 @@ def play_with_lists(numbers, number):
 - Hab beide erstellt, kommt drauf an was man braucht (ob Originale bestehen soll oder nicht). Hier ist es egal, da es die letzte Aufgabe ist.
 """
 
-play_with_lists(numbers, number)
-
-
-#Verbesserungen für später
-
+#Notizen:
     # numbers_ersetzen = [1 if number == numbers_ersetzen else number for number in numbers_ersetzen] # Task two
     # print(numbers_ersetzen)
     # for i, number in enumerate(numbers_ersetzen): # Task two
     #     if number == numbers_ersetzen:
     #         numbers_ersetzen[i] == 1
     #     print(numbers_ersetzen)
-
     # numbers_ersetzen = [1 if number == numbers_ersetzen else number for number in numbers_ersetzen] # Task two
     # print(numbers_ersetzen)
-
 #for e in reversed(numbers): #Task one - does not modify the list, just get a view, but not a list
        #print(e)
 #print(reverse_numbers.reverse())
@@ -109,16 +104,16 @@ elements. This list may be empty if there are no common elements"""
 list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3, 7]
 print("Task 3: ")
 def compare_lists(list1, list2):
-    return print("Common elements: ", list(set(list1) & set(list2)), "\n")
+    return "Common elements: ", list(set(list1) & set(list2))
 
-compare_lists(list1, list2)
+print(compare_lists(list1, list2), "\n")
 
-# Ideen für ein anderes Mal, die noch nicht funktioniert haben:
+# Notizen:
 # list3 = []
 #     for x in list1:
 #         for y in list2:
-#             if (x == y):
-#                 print(list([x]))
+#             for z = (x == y):
+#                 print(list([z]))
 
 #4: No duplicates!
 """Write a function remove_duplicates(items) that accepts a list of strings named items as 
@@ -131,16 +126,13 @@ Both functions return the list of strings without duplicates."""
 items = ["Hallo", "Hallo", "Du", 7, 8, 8, 9, 0] # nicht nur für strg funktioniert es - kein Bug, sondern ein Feature
 print("Task 4: ")
 def remove_duplicates(items):
-    print("Leichte Variante: ", str(list(set(items)))) #hier str bringt für den Type unten nichts
-    for x in list(set(items)): #Check, ob alles eh strg ist
-        print(type(x)) # hier bringt str(type(x)) auch nicht, trotzdem ints unten, hätte hier noch gern, dass alle typen in einer Liste und nicht untereinander stehen
-remove_duplicates(items) # hier teilt es mir "Hallo" z.B. wieder in einzelne Strings auf
+    return str(list(set(items))) #hier str bringt für den Type unten nichts
 
-#bei der oberen Variante hab ich items = str([ geschrieben, damit alles strg ist (aber es hat mir "Hallo" aufgeteilt, das wollte ich nicht
-#lasse es jetzt so, da es für mich kein Bug sondern ein Feature ist
+print("Leichte Variante", remove_duplicates(items)) # hier teilt es mir "Hallo" z.B. wieder in einzelne Strings auf
+
+#Schwere Variant
 
 items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
-print("Schwere Variante: ")
 
 def remove_duplicats_my_way(items):
     items_without_duplicates = []
@@ -148,9 +140,9 @@ def remove_duplicats_my_way(items):
         if x not in items_without_duplicates:
             items_without_duplicates.append(x)
             continue
-    print(items_without_duplicates, "\n")
+    return items_without_duplicates
 
-remove_duplicats_my_way(items)
+print("Schwere Variante: ", remove_duplicats_my_way(items), "\n")
 
 #Erste Schwache Versuche um Mitternacht:
    # items_without_duplicates = []
@@ -205,26 +197,28 @@ def describe_computer(computer):
     for x in computer: #V1
         if not computer[x]:
             computer[x] = "None"
-    return print("V1: ", computer, "\n")
+    print("V1: ", computer, "\n")
 
 describe_computer(computer)
 
-computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000, "Non" : ""}
+#2. Variante, hat noch nicht funktioniert
 
-def describe_computer1(computer):
-    type = computer.get("Type", "Notebook")
-    brand = computer.get("Brand", "Dell")
-    price = computer.get("Price", 2000)
-    print(f"You have a {type} from {brand} that costs {price} €")
-
-    computer.setdefault("OS", "Linux")
-    print(computer)
-
-    computer_1 = computer
-    computer_1 = [computer[x] == "None" for x in computer if not computer[x]]
-    print("V2: ", computer_1)
-
-describe_computer1(computer)
+# computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000, "Non" : ""}
+#
+# def describe_computer1(computer):
+#     type = computer.get("Type", "Notebook")
+#     brand = computer.get("Brand", "Dell")
+#     price = computer.get("Price", 2000)
+#     print(f"You have a {type} from {brand} that costs {price} €")
+#
+#     computer.setdefault("OS", "Linux")
+#     print(computer)
+#
+#     computer_1 = computer
+#     computer_1 = [computer[x] == "None" for x in computer if not computer[x]]
+#     print("V2: ", computer_1)
+#
+# describe_computer1(computer)
 
 #erster Schritt printen hat gepasst, es fehlt noch If one of the keys is not present, the value used in the output defaults to a text
 # print(dict(set(computer)))
