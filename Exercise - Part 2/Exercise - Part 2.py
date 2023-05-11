@@ -7,7 +7,7 @@ numbers and an integer named number as arguments. It counts the occurrence of th
 number in the list and returns the count as an integer. Do not use-built-in functions! Use loops to
 solve the problem."""
 
-numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
+numbers, number = [0, 7, 1, 2, 3, 7, 4, 5, 6, 7, 8, 8, 9, 0], 7
 print("Task 1.1: ")
 
 def count_a_number(numbers, number):
@@ -50,6 +50,7 @@ The function does not return anything."""
 numbers, number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], 8
 print("Task 2: ")
 def play_with_lists(numbers, number):
+    print("Originale Liste:  ", numbers)
     numbers_1 = numbers[:]
     reverse_numbers = numbers[:]
     replaced_numbers = numbers[:]
@@ -58,20 +59,20 @@ def play_with_lists(numbers, number):
 
     print("Reverse_numbers:  ", reverse_numbers[::-1]) # Task one
 
-    if number in replaced_numbers: # Task 2 hier wird nur erste 8 ersetzt, nicht ideal - umbauen auf for
-        i = replaced_numbers.index(number)
-        replaced_numbers[i] = 1
-        print("Replaced_numbers: ", replaced_numbers)
+    # if number in replaced_numbers: # Task 2 hier wird nur erste 8 ersetzt, nicht ideal - umbauen auf for
+    #     i = replaced_numbers.index(number)
+    #     replaced_numbers[i] = 1
+    #     print("Replaced_numbers: ", replaced_numbers)
 
     replaced_numbers2 = [1 if x == number else x for x in replaced_numbers] # Task 2 mit List Comprehension, hier werden alle 8er ersetzt
-    print("Replaced_numbers2:", replaced_numbers2)
+    print("Replaced_numbers:", replaced_numbers2)
 
-    sorted_numbers1.sort(reverse = True) # Task three .sort
+    sorted_numbers1.sort(reverse=True) # Task three .sort
     print("Sorted_numbers 1: ", sorted_numbers1)
 
-    sorted_numbers2 = sorted(numbers_1, reverse = True) # Task sorted()
+    sorted_numbers2 = sorted(numbers_1, reverse=True) # Task sorted()
     print("Sorted_numbers 2: ", sorted_numbers2)
-    print("Originale Liste:  ", numbers_1, "\n")
+    print("Originale Liste:  ", numbers_1, "\n") #Beweis das originale Liste bleibt
 
 play_with_lists(numbers, number)
 
@@ -101,7 +102,7 @@ play_with_lists(numbers, number)
 function looks for elements that the two lists have in common. It returns a list containing all those 
 elements. This list may be empty if there are no common elements"""
 
-list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3, 7]
+list1, list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0], [1, 2, 3, 7, 12]
 print("Task 3: ")
 def compare_lists(list1, list2):
     return "Common elements: ", list(set(list1) & set(list2))
@@ -132,7 +133,7 @@ print("Leichte Variante", remove_duplicates(items)) # hier teilt es mir "Hallo" 
 
 #Schwere Variant
 
-items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 0]
+items = [0, 1, 2, 3, 4, 5, 6, "hallo", "hallo", 8, 9, 0]
 
 def remove_duplicats_my_way(items):
     items_without_duplicates = []
@@ -182,22 +183,25 @@ brand” for the key “Brand”.
 The function does not return anything
 """
 
-computer = {"Type" : "Notebook", "Brand" : "Dell", "Price" : 2000, "Non" : ""}
+computer = {"Type": "Notebook", "Brand": "Dell", "Price": 2000}
 print("Task 5: ")
 
 def describe_computer(computer):
-    type = computer.get("Type", "Notebook")
-    brand = computer.get("Brand", "Dell")
-    price = computer.get("Price", 2000)
-    print(f"You have a {type} from {brand} that costs {price} €")
+    # type = computer.get("Type")
+    # brand = computer.get("Brand")
+    # price = computer.get("Price")
 
+    computer.setdefault("Type", "Unknown T")
+    computer.setdefault("Brand", "Unknown B")
+    computer.setdefault("Price", "Unknown P")
     computer.setdefault("OS", "Linux")
-    print(computer)
 
-    for x in computer: #V1
-        if not computer[x]:
-            computer[x] = "None"
-    print("V1: ", computer, "\n")
+    # for x in computer: #V1
+    #     if not computer[x]:
+    #         computer[x] = "Unknown"
+
+    print(f"You have a {computer['Type']} from {computer['Brand']} that costs {computer['Price']}€")
+    print("2: ", computer)
 
 describe_computer(computer)
 

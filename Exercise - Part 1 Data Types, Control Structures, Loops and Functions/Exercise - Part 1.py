@@ -42,7 +42,7 @@ def name_age():
     age_as_int = int(age)
     message = "Hallo " + name + " Du bist " + age + " Jahre alt" #Concentation (Nachteil: nur Strings)
     print(message)
-    print("Hallo {name} Du bist {age} Jahre alt".format(name = name, age = age)) #String format()
+    print("Hallo {name} Du bist {age} Jahre alt".format(name=name, age=age)) #String format()
     print(f"Hallo {name} Du bist {age} Jahre alt", "\n") #f-strings
 
 name_age()
