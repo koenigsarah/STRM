@@ -93,6 +93,8 @@ def check_numbers(num1, num2):
 
 print(check_numbers(num1, num2), "\n")
 
+# oder nur: return if (num1 % 6 == 0 or num2 % 6 == 0) and (num1 % 10 == 0 and num2 % 10 == 0)
+
 # Andere Variante:
 # #    print("Task 5: ")
 #     if (num1 % 6 == 0 or num2 % 6 == 0) and (num1 % 10 == 0 and num2 % 10 == 0):
@@ -124,8 +126,7 @@ def sum_up(num1, num2):
         return summe
 
 
-print(sum_up(num1, num2))
-print()
+print(sum_up(num1, num2), "\n")
 
 # Notizen
 #         return summe
@@ -167,19 +168,16 @@ print()
 #             print(i)
 # sequence(number)
 
-# 8: String Check DONE
+# 8: String Check DONE - FALSCH, nochmal
 """Write a function check_string(text) that accepts a string and checks if it begins OR ends with
 the character “a”. Use built-in string methods of python. The function returns True if the string begins or ends with an “a”. The function should work for
 lower and upper case strings."""
 
-text = "alles"
+text = "Alles"
 
 
 def check_string(text):
-    if text.endswith("a" or "A") or text.startswith("a" or "A"):
-        return True
-    return False
-
+    return text.endswith("A") or text.endswith("a") or text.startswith("A") or text.startswith("a")
 
 check_string(text)
 
