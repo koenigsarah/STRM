@@ -8,8 +8,9 @@ def famous_quote():
     author = "Cindy Crawford"
     print("Task 1: ", author, "once said:", quote, "\n")
 
-
 famous_quote()
+
+print("Hallo Ö3!")
 
 # 2: Number Eight - DONE
 """Write a function called number_eight(), that uses addition, subtraction, multiplication, division
