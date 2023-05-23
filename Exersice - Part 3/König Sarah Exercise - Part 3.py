@@ -35,6 +35,7 @@ class Ticket:
         CREATED, IN_PROGRESS, TESTING, CLOSED = "Created", "In progress", "Testing", "Closed"
 
     def __init__(self, description, priority, status=Status.CREATED, created_timestamp=None):#für Individualisierung, erster Parameter muss self sein, Attribute des Tickets hier; created_timestamp=None, weil sonst Syntax Error (Non-default argument follows default argument)
+        self.id = None
         self.description = description
         self.priority = priority
         self.status = status
@@ -48,27 +49,30 @@ class Ticket:
     def __str__(self):#Methode um Ticket-Objekt zu String zu machen
         priority_str = f"Priority {self.priority.value} ({self.priority.name.replace('_', ' ')})" #Priority als Strg
         created_str = f"Created on {self.created_timestamp.strftime('%m/%d/%y %H:%M:%S')}" #Zeitstempel als str und in folgendem Datumformat (wie in Video von Studyflix erklärt)
-        comment_str = "\nComments:" + "\n".join(f" {user}, {timestamp.strftime('%m/%d/%y %H:%M:%S')}: {text}" for text, user, timestamp in self.comments)
+        comment_str = "\nComments:" + "\n".join(f" {user}, {timestamp.strftime('%m/%d/%y %H:%M:%S')}: {text}" for text, user, timestamp in self.comments) #Kommentar - von wem, mit wann +Text
 
-        return f"T: {self.id}: {self.description}, {created_str} - {priority_str} {comment_str}" #Und jetzt die oberen drei zusammen returnen, allgemeine Infos - das andere ist dann Software / Hardware spezifisch
+        return f"T: {self.id}: {self.description}, {created_str} - {priority_str} {comment_str}" #Und jetzt die oberen drei zusammen returnen und mit f String, für die Platzhalter, allgemeine Infos - das andere ist dann Software / Hardware spezifisch
 
 class SoftwareTicket(Ticket):#eigene Klasse, ergbt von "Ticket" Klasse, zusätzliche Attribute wie Fehlermeldung und betroffene Betriebssysteme
-    software_ticket_id = 100000#Start bei angegebener Nummer
+    software_ticket_id = 100000 #Start bei angegebener Nummer
+
+    class OperatingSystem(Enum):#Unterklasse, begrenzte Anzahl von Optionen darstellen (als string behandelt)
+        WINDOWS, MACOS, LINUX, ANDROID, IOS = "Windows", "macOS", "Linux", "Android", "iOS"
 
     def __init__(self, description, priority, operating_systems, error_message, status=Ticket.Status.CREATED, created_timestamp=None):#Attribute festlegen, wieder bei init zuerst self vorne
-        super().__init__(description, priority, status, created_timestamp)#damit ich Methode der Klasse "Tickets" aufrufen kann
+        super().__init__(description, priority, status, created_timestamp)#damit ich Methode der Klasse "Tickets" aufrufen kann (dort festgelegte attribute)
         self.id = SoftwareTicket.software_ticket_id
         SoftwareTicket.software_ticket_id += 1
         self.operating_systems = operating_systems
         self.error_message = error_message
 
     def __str__(self):#Methode um Ticket-Objekt als String darzustellen
-        base_str = super().__str__()
-        os_str = ', '.join(self.operating_systems)
+        base_str = super().__str__() #damit rufe ich die Eltern-Klasse Ticket (den return f)
+        os_str = self.operating_systems #man kann nur an iterable joinen, noch korrigieren
         return f"{base_str}\n Error message: '{self.error_message}', Affected OSs: {os_str}"
 
 class HardwareTicket(Ticket): #eigene Klasse, erbet von Klasse "Ticket"
-    hardware_ticket_id = 200000#Start bei angegebener Nummer
+    hardware_ticket_id = 200000 #Start bei angegebener Nummer
 
     def __init__(self, description, priority, component, serial_number, error_code=None, status=Ticket.Status.CREATED, created_timestamp=None):
         super().__init__(description, priority, status, created_timestamp)#damit ich Methode der Klasse "Tickets" aufrufen kann
@@ -84,7 +88,7 @@ class HardwareTicket(Ticket): #eigene Klasse, erbet von Klasse "Ticket"
         return f"{base_str}\n {component_str}"
 
 # Beispiel:
-software_ticket = SoftwareTicket("Login problems", Ticket.Priority.SEVERE, ["MacOS", "Windows"], "Document not found: 404")
+software_ticket = SoftwareTicket("Login problems", Ticket.Priority.SEVERE, SoftwareTicket.OperatingSystem.WINDOWS, "Document not found: 404")
 software_ticket.add_comment("Android does not have that problem", "Tina")
 software_ticket.add_comment("Android is developed separately", "Christoph")
 
