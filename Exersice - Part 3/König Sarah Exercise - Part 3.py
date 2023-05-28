@@ -23,6 +23,8 @@ available, the error code (str). Ids of hardware tickets start at 200.000.
 Design the classes necessary to manage these tickets, write constructors for these classes. Make sure
 that the classes can represent themselves as strings."""
 
+# Idee, Struktur: Grundlegend haben wir drei versch. Klassen - TIcket (hier Infos, wo für beide gültige Infos reinkommen), Software Ticket (hier Software-spezifische Infos) und Hardware Ticket (hier Hardware spezifische Infos)
+
 from enum import Enum, IntEnum  # wie am 15.05 besprochen, Enum und Intenum
 from datetime import datetime  # für Timestamp
 from time import sleep # zurzeit auskommentiert
@@ -102,10 +104,10 @@ class HardwareTicket(Ticket):  # eigene Klasse, erbt von Klasse "Ticket"
         self.serial_number = serial_number
         self.error_code = error_code
 
-    # def __str__(self):  # Methode um Ticket-Objekt als String darzustellen
-    #     base_str = super().__str__()
-    #     component_str = f"Component: {self.component}, Seriennummer: {self.serial_number}, Error code: {self.error_code or 'None'}"
-    #     return f"{base_str}\n {component_str}"
+    def __str__(self):  # Methode um Ticket-Objekt als String darzustellen
+        base_str = super().__str__()
+        component_str = f"Component: {self.component}, Seriennummer: {self.serial_number}, Error code: {self.error_code or 'None'}"
+        return f"{base_str}\n {component_str}"
 
     def __repr__(self):  # Methode um Ticket-Objekt als String darzustellen
         base_str = super().__str__()
@@ -123,9 +125,10 @@ software_ticket.add_comment("Android is developed separately", "Christoph")  # 2
 # sleep(5)
 hardware_ticket = HardwareTicket("Troubles with printer in main hall", Ticket.Priority.AFFECTING, "Printer C.1.08b",
                                  "234-23")  # Nach und nach die fStrings auffüllen (zuerst allg. Ticket, dann Hardware Ticket)
+hardware_ticket.add_comment("Habt ihr ihn schon ein- und ausgeschalten?", "Nadja")
 
 software_ticket2 = SoftwareTicket("Layout issues", Ticket.Priority.AFFECTING, SoftwareTicket.OperatingSystem.LINUX, "ValueError")
-
+software_ticket2.add_comment("Schon wieder?", "Sarah")
 
 print(software_ticket, "\n")
 print(software_ticket2, "\n")
@@ -141,6 +144,9 @@ of Tickets assigned to a particular team. It has two methods:
 1. add(team: Team, ticket: Ticket) to add a ticket and 
 2. a string representation.
 """
+
+# jetzt Teams erstellen und zu jeweiligen Ticket hinzufügen
+
 print("\n", "Task 2")
 
 class Team:
@@ -168,15 +174,15 @@ class Assignments:  # Ticketzuweisungen
         else:
             return []  # wenn Team in assignment ist, dann assignemts[team9 returnen, sonst []
 
-    # def __str__(self):  # wieder zu str
-    #     result = "All assignments:\n"
-    #     for team, tickets in self.assignments.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
-    #         result += str(team) + "\n"
-    #         for ticket in tickets:  # für ticket in Tickets, result += ticket und Abstand (vorher war ja Team dazu bei result)
-    #             result += str(ticket) + "\n"
-    #     return result
+    def __str__(self):  # wieder zu str
+        result = "All assignments:\n"
+        for team, tickets in self.assignments.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
+            result += str(team) + "\n"
+            for ticket in tickets:  # für ticket in Tickets, result += ticket und Abstand (vorher war ja Team dazu bei result)
+                result += str(ticket) + "\n"
+        return result
 
-    def __repr__(self):  # Empfohlen von Alex: für textuelle Repräsentation des Objekts (jetzt ist auch der Fehler weg - hab vorher neue Tickets erstellt im 2. Part (ungewollt)
+    def __repr__(self):  # repr Empfohlen von Alex: für textuelle Repräsentation des Objekts (jetzt ist auch der Fehler weg - hab vorher neue Tickets erstellt im 2. Part (ungewollt)
         result = "All assignments:\n"
         for team, tickets in self.assignments.items():
             result += str(team) + "\n"
