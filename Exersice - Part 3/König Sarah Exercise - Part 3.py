@@ -87,9 +87,7 @@ class SoftwareTicket(Ticket):  # eigene Klasse, erbt von "Ticket" Klasse, zusät
         return f"{base_str}\n Error message: '{self.error_message}', Affected OSs: {self.operating_systems.value}"
 
     def __repr__(self):  # Methode um Ticket-Objekt als String darzustellen, OperatingSystems durch Enum schon string, nicht mehr notwendig
-        base_str = super().__str__()  # damit rufe ich die Eltern-Klasse Ticket (den return f)
-        return f"{base_str}\n Error message: '{self.error_message}', Affected OSs: {self.operating_systems.value}"
-
+        return self.__str__
 
 class HardwareTicket(Ticket):  # eigene Klasse, erbt von Klasse "Ticket"
     hardware_ticket_id = 200_000  # Start bei angegebener Nummer
@@ -110,9 +108,7 @@ class HardwareTicket(Ticket):  # eigene Klasse, erbt von Klasse "Ticket"
         return f"{base_str}\n {component_str}"
 
     def __repr__(self):  # Methode um Ticket-Objekt als String darzustellen
-        base_str = super().__str__()
-        component_str = f"Component: {self.component}, Seriennummer: {self.serial_number}, Error code: {self.error_code or 'None'}"
-        return f"{base_str}\n {component_str}"
+        return self.__str__
 
 
 # Beispiel:
@@ -146,7 +142,6 @@ of Tickets assigned to a particular team. It has two methods:
 """
 
 # jetzt Teams erstellen und zu jeweiligen Tickets hinzufügen
-import hashlib
 
 print("\n", "Task 2")
 
@@ -154,46 +149,38 @@ class Team:
     def __init__(self, name,
                  *members):  # für Individualisierung, * vor Members, um variable Anzahl von Argumenten für "members" aufzunehmen
         self.name = name
-        self.members = list(members)  # um Mitglieder in Liste abzuspeichern
+        self.members = tuple(members)  # um Mitglieder in Liste abzuspeichern
 
     def __str__(self):  # wieder als String darstellen, was oben in __init__ definiert wurde
         return f"Team {self.name} ({', '.join(self.members)}):"  # join um hier {} wegzugeben und Beistrich zwischen den Namen
 
-    def __has__(self):
-        return hash((self.name, tuple(self.members)))
+    def __repr__(self):
+        return self.__str__
+
+    def __hash__(self):
+        return hash((self.name, self.members))
+
+    def __eq__(self, other):
+        return (self.name, self.members) == (other.name, other.members)
 
 
-class Assignments:  # Ticketzuweisungen
-    def __init__(self):
-        self.assignments = {}  # Dictonary
+class Assignments(dict):  # Ticketzuweisungen
 
     def add(self, team, ticket):  # Methode add, um Team Ticket zuzuweisen
-        if team not in self.assignments:
-            self.assignments[team] = []
-        self.assignments[team].append(ticket)
-
-    def get(self, team):  # Methode get, um Zuweisung von Team abzurufen
-        if team in self.assignments:
-            return self.assignments[team]
-        else:
-            return []  # wenn Team in assignment ist, dann assignemts[team9 returnen, sonst []
+        if team not in self:
+            self[team] = []
+        self[team].append(ticket)
 
     def __str__(self):  # wieder zu str
         result = "All assignments:\n"
-        for team, tickets in self.assignments.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
+        for team, tickets in self.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
             result += str(team) + "\n"
             for ticket in tickets:  # für ticket in Tickets, result += ticket und Abstand (vorher war ja Team dazu bei result)
-                result += str(ticket) + "\n"
+                result += str(ticket) + "\n\n"
         return result
 
     def __repr__(self):  # repr empfohlen von Alex: für textuelle Repräsentation des Objekts (jetzt ist auch der Fehler weg - hab vorher neue Tickets erstellt im 2. Part (ungewollt)
-        result = "All assignments:\n"
-        for team, tickets in self.assignments.items():
-            result += str(team) + "\n"
-            for ticket in tickets:
-                result += str(ticket) + "\n"
-        return result
-
+        return self.__str__()
 
 # Beispiel
 assignments = Assignments()
@@ -205,14 +192,6 @@ assignments.add(t2, software_ticket2)
 
 print(assignments)
 
-# Nur Aufgaben, die zu einem Team zugeordnet sind
-print("Assignments of " + str(t1))
-print(assignments.get(t1))
-
-print(assignments.assignments[t2])
-
-code_hash = hashlib.sha256(__file__.encode()).hexdigest()
-print("Hash of the code:", code_hash)
 
 # Archiv
 # print("\n", "Task 2")
@@ -229,22 +208,22 @@ print("Hash of the code:", code_hash)
 #
 # class Assignments:  # Ticketzuweisungen
 #     def __init__(self):
-#         self.assignments = {}  # Dictonary
+#         self = {}  # Dictonary
 #
 #     def add(self, team, ticket):  # Methode add, um Team Ticket zuzuweisen
-#         if team not in self.assignments:
-#             self.assignments[team] = []
-#         self.assignments[team].append(ticket)  #
+#         if team not in self:
+#             self[team] = []
+#         self[team].append(ticket)  #
 #
 #     def get(self, team):  # Methode get, um Zuweisung von Team abzurufen
-#         if team in self.assignments:
-#             return self.assignments[team]
+#         if team in self:
+#             return self[team]
 #         else:
 #             return []  # wenn Team in assignment ist, dann assignemts[team9 returnen, sonst []
 #
 #     def __str__(self):  # wieder zu str
 #         result = "All assignments:\n"
-#         for team, tickets in self.assignments.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
+#         for team, tickets in self.items():  # für Team und Tickets in self assignment, result += str(team und Absatz)
 #             result += str(team) + "\n"
 #             for ticket in tickets:  # für ticket in Tickets, result += ticket und Abstand (vorher war ja Team dazu bei result)
 #                 result += str(ticket) + "\n"
@@ -252,7 +231,7 @@ print("Hash of the code:", code_hash)
 #
 #     def __repr__(self):  # repr empfohlen von Alex: für textuelle Repräsentation des Objekts (jetzt ist auch der Fehler weg - hab vorher neue Tickets erstellt im 2. Part (ungewollt)
 #         result = "All assignments:\n"
-#         for team, tickets in self.assignments.items():
+#         for team, tickets in self.items():
 #             result += str(team) + "\n"
 #             for ticket in tickets:
 #                 result += str(ticket) + "\n"
@@ -273,4 +252,4 @@ print("Hash of the code:", code_hash)
 # print("Assignments of " + str(t1))
 # print(assignments.get(t1))
 #
-# print(assignments.assignments[t2])
+# print(assignments[t2])
