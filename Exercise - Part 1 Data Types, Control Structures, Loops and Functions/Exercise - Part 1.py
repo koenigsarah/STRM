@@ -174,7 +174,7 @@ print()
 the character “a”. Use built-in string methods of python. The function returns True if the string begins or ends with an “a”. The function should work for
 lower and upper case strings."""
 
-text = "Alles"
+text = "lle"
 
 
 def check_string(text):
